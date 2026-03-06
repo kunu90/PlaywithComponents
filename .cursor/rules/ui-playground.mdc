@@ -1,0 +1,13 @@
+---
+description: Constraints for a UI-only playground.
+globs: src/components/**/*.tsx, src/app/**/*.tsx
+alwaysApply: true
+---
+
+# UI Playground Rules
+
+- **No Backend:** Do not use `async` server components for data fetching. Use static `const MOCK_DATA`.
+- **Imports:** Always use the `@/` alias (e.g., `@/components/ui/button`).
+- **Structure:**
+  - Primitives: `src/components/ui`
+  - Custom Blocks: `src/components/blocks` (create this folder if it doesn't exist)

@@ -1,0 +1,11 @@
+---
+description: Standards for micro-interactions using Framer Motion or GSAP.
+globs: src/components/**/*.tsx, src/app/**/*.tsx
+---
+
+# Motion Standards
+
+- **Framer Motion:** Default for "Spring" based UI transitions. Use `<motion.div />`.
+- **GSAP:** Use for scroll-triggered timelines or complex SVG morphing.
+- **Physics:** Use spring physics for interactions: `stiffness: 300, damping: 20`.
+- **Interaction:** Add `whileHover={{ scale: 1.02 }}` and `whileTap={{ scale: 0.98 }}` to interactive elements.
