@@ -1,12 +1,48 @@
-import { InteractiveBentoGrid } from "@/components/blocks/interactive-bento-grid"
-import { MagneticCursorLayer } from "@/components/blocks/magnetic-cursor-layer"
+"use client"
 
-export default function Home() {
+import { toast } from "sonner"
+import { Button } from "@/components/ui/button"
+
+export default function Page() {
   return (
-    <MagneticCursorLayer>
-      <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10 font-sans">
-        <InteractiveBentoGrid />
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10 font-sans">
+      <div className="flex flex-col gap-4">
+        <Button
+          onClick={() =>
+            toast("Event has been created", {
+              description: "Sunday, December 03, 2023 at 9:00 AM",
+              action: {
+                label: "Undo",
+                onClick: () => console.log("Undo"),
+              },
+            })
+          }
+        >
+          Default Toast
+        </Button>
+
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast.success("Success toast", {
+              description: "Your changes have been saved.",
+            })
+          }
+        >
+          Success Toast
+        </Button>
+
+        <Button
+          variant="destructive"
+          onClick={() =>
+            toast.error("Alert toast", {
+              description: "Something went wrong.",
+            })
+          }
+        >
+          Alert Toast
+        </Button>
       </div>
-    </MagneticCursorLayer>
+    </div>
   )
 }
