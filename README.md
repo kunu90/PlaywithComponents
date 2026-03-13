@@ -14,7 +14,7 @@ The AI (Cursor) acted as a pair programmer. I directed the design intent; the AI
 
 ---
 
-## What I Learned (Framed as a Designer)
+## What I Learned 
 
 ### 1. Components are design decisions frozen in code
 Every shadcn component is essentially a set of UX decisions — spacing, interaction states, accessibility roles — expressed as TypeScript. Editing them directly made me understand *why* those decisions were made, not just what they look like.
