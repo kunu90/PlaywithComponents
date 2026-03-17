@@ -2,6 +2,7 @@
 
 > A personal learning lab where I explore the intersection of UX design thinking and AI-assisted front-end development — one component at a time.
 
+Link to view the latest changes: https://playwithcomponents.vercel.app/
 ---
 
 ## What This Is (And Why It Exists)
