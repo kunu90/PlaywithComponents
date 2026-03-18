@@ -1,5 +1,6 @@
 "use client"
 
+import type { CSSProperties } from "react"
 import {
   CircleCheckIcon,
   InfoIcon,
@@ -28,19 +29,42 @@ const Toaster = ({ ...props }: ToasterProps) => {
         },
       }}
       icons={{
-        success: <CircleCheckIcon className="size-4" />,
+        success: (
+          <CircleCheckIcon
+            className="size-4"
+            style={{ color: "var(--chart-2)" }}
+          />
+        ),
         info: <InfoIcon className="size-4" />,
         warning: <TriangleAlertIcon className="size-4" />,
-        error: <OctagonXIcon className="size-4" />,
+        error: (
+          <OctagonXIcon
+            className="size-4"
+            style={{ color: "var(--destructive)" }}
+          />
+        ),
         loading: <Loader2Icon className="size-4 animate-spin" />,
       }}
       style={
         {
+          // Default / neutral toasts
           "--normal-bg": "var(--popover)",
           "--normal-text": "var(--popover-foreground)",
           "--normal-border": "var(--border)",
+
+          // Success toasts
+          "--success-bg": "var(--background)",
+          "--success-border": "var(--chart-2)",
+          "--success-text": "var(--foreground)",
+
+          // Error toasts
+          "--error-bg": "var(--background)",
+          "--error-border": "var(--destructive)",
+          "--error-text": "var(--foreground)",
+
+          // Shared
           "--border-radius": "var(--radius)",
-        } as React.CSSProperties
+        } as CSSProperties
       }
       {...props}
     />
