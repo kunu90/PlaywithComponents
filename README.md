@@ -2,6 +2,32 @@
 
 > A personal learning lab where I explore the intersection of UX design thinking and AI-assisted front-end development — one component at a time.
 
+Latest update:
+Toast(Sonner) UI Tweaks
+I used Cursor to iteratively refine the toast UI in this project:
+
+What I changed
+Customized success and error toast colors using sonner’s CSS variables and our theme tokens.
+Updated success/error icons so the success icon uses the success color token and the error icon uses the destructive color token.
+Ensured the visual treatment looks intentional in both light and dark modes, while forcing light-style success color where desired.
+How I worked in Cursor
+
+Searched for the toast implementation (Toaster and sonner.tsx) and theme tokens (globals.css) using Cursor’s file/grep tools.
+Edited the Toaster component to:
+Set --success-bg, --success-border, --success-text, --error-bg, --error-border, --error-text in the style prop.
+Override icon colors inline on the Lucide icons (CircleCheckIcon, OctagonXIcon) to match the success/destructive tokens.
+Ran the app locally via npm run dev directly from Cursor and inspected DOM paths to verify which elements were being styled.
+Mistakes and how I fixed them
+
+Initially tied success colors to theme variables in a way that made the success toast look like dark mode even when I wanted a light-style appearance. I corrected this by:
+Swapping the success background to a fixed oklch(...) value that matches the light --chart-2.
+Adjusting success text/border to keep contrast and visual consistency.
+At first, only the toast background/border changed, but the icons stayed neutral. I fixed this by explicitly setting style={{ color: "var(--chart-2)" }} for success and style={{ color: "var(--destructive)" }} for error on the SVG icons.
+When pushing to GitHub, the first git push was rejected because the remote branch had new commits; I resolved it directly in Cursor by running git pull --rebase followed by git push.
+This small workflow shows how I used Cursor not just to edit code, but also to debug UI details, inspect DOM paths, correct theme edge cases, and handle git operations end-to-end without leaving the editor.
+
+
+
 Link to view the latest changes: https://playwithcomponents.vercel.app/
 ---
 
