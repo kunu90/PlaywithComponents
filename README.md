@@ -31,7 +31,7 @@ This small workflow shows how I used Cursor not just to edit code, but also to d
 Link to view the latest changes: https://playwithcomponents.vercel.app/
 ---
 
-## What This Is (And Why It Exists)
+## The What and Why?
 
 I'm a UX designer learning to code with the help of AI tools. This repository is not a finished product — it is a **deliberate, hands-on learning environment**.
 
