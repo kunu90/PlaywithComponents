@@ -68,7 +68,7 @@ src/
 │       └── magnetic-cursor-layer.tsx   ← GSAP-powered custom cursor (currently toggled off)
 └── app/
     ├── layout.tsx         ← Root layout with <Toaster /> mounted globally
-    └── page.tsx           ← Current demo: toast notification playground
+    └── page.tsx           ← Component explorer (sidebar + variant cards + live previews)
 ```
 
 ---
@@ -85,6 +85,9 @@ This was the component I spent the most time with. Starting from the default sha
 | `richColors={true}` | Green for success, red for error — no ambiguity | Colour should carry semantic meaning, not just aesthetics |
 | `closeButton={true}` | Gives users explicit control to dismiss | Respects user agency — a core UX principle |
 | `rounded-full` + `backdrop-blur-md` | Pill shape and glass morphism for the toast container | Explored how CSS utility classes express visual design language |
+
+### Theme Switching (`src/components/blocks/theme-switcher.tsx`)
+I added a Light/Dark/System dropdown that updates the app theme globally (via `next-themes`) and makes Sonner automatically use the matching theme palette.
 
 ### Interactive Bento Grid (`src/components/blocks/interactive-bento-grid.tsx`)
 A custom block built entirely from shadcn primitives (`Card`, `Badge`, `Button`) and animated with Framer Motion. Each tile uses `layoutId` for smooth positional transitions and `whileHover` for spring-physics-based lift effects (`stiffness: 300, damping: 20`).
