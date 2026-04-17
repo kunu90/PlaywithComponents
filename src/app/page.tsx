@@ -1,11 +1,13 @@
 "use client"
 
 import * as React from "react"
+import { AlignCenter, AlignLeft, AlignRight, Settings2 } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
 import { ThemeSwitcher } from "@/components/blocks/theme-switcher"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group"
 import { Card } from "@/components/ui/card"
 import {
   Pagination,
@@ -259,6 +261,44 @@ function PaginationPreview({ activeTypeId }: { activeTypeId: string }) {
   )
 }
 
+function ButtonGroupPreview({ orientation }: { orientation: "horizontal" | "vertical" }) {
+  const [alignment, setAlignment] = React.useState<"left" | "center" | "right">("center")
+
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="space-y-3">
+        <ButtonGroup orientation={orientation}>
+          <Button
+            variant={alignment === "left" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setAlignment("left")}
+          >
+            Option 1
+          </Button>
+          <Button
+            variant={alignment === "center" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setAlignment("center")}
+          >
+            Option 2
+          </Button>
+          <Button
+            variant={alignment === "right" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setAlignment("right")}
+          >
+            Option 3
+          </Button>
+          <ButtonGroupSeparator />
+          <Button variant="outline" size="sm">
+            <Settings2 className="mr-1 size-4" />
+          </Button>
+        </ButtonGroup>
+      </div>
+    </div>
+  )
+}
+
 function PageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -324,56 +364,79 @@ function PageContent() {
           </header>
 
           <section>
-            <Card className="mb-6 bg-card/10 p-6">
-              <div className="text-sm font-medium text-foreground">
-                Click a type below to trigger a Toast
-              </div>
-
-              {selected.slug === "pagination" && (
-                <div className="mt-2">
-                  <PaginationPreview activeTypeId={activeTypeId} />
-                </div>
-              )}
-
-              {selected.slug !== "sonner" &&
-                selected.slug !== "pagination" && (
-                  <div className="mt-2 text-muted-foreground">
-                    Preview for this component is not implemented yet.
+            {selected.slug === "button-group" ? (
+              <div className="flex flex-col gap-6 md:flex-row">
+                <Card className="flex-1 bg-card/10 p-6">
+                  <div className="text-sm font-medium text-foreground">
+                    Horizontal orientation
                   </div>
-                )}
-            </Card>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              {selected.types.map((t) => (
-                <Card
-                  key={t.id}
-                  className="relative min-h-[160px] overflow-hidden bg-card/20"
-                >
-                  <div className="flex h-full flex-col items-center justify-center gap-2">
-                    <div className="text-xs font-medium text-muted-foreground">
-                      Type
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className={[
-                        "rounded-full border-border/60 bg-background/30 px-4 py-1",
-                        "h-auto text-sm font-medium transition-colors hover:bg-background/60",
-                      ].join(" ")}
-                      onClick={() => {
-                        setActiveTypeId(t.id)
-
-                        if (selected.slug === "sonner") {
-                          showSonnerToast(t.id)
-                        }
-                      }}
-                    >
-                      {t.title}
-                    </Button>
+                  <div className="mt-2">
+                    <ButtonGroupPreview orientation="horizontal" />
                   </div>
                 </Card>
-              ))}
-            </div>
+
+                <Card className="flex-1 bg-card/10 p-6">
+                  <div className="text-sm font-medium text-foreground">
+                    Vertical orientation
+                  </div>
+                  <div className="mt-2">
+                    <ButtonGroupPreview orientation="vertical" />
+                  </div>
+                </Card>
+              </div>
+            ) : (
+              <>
+                <Card className="mb-6 bg-card/10 p-6">
+                  <div className="text-sm font-medium text-foreground">
+                    Click a type below to trigger a Toast
+                  </div>
+
+                  {selected.slug === "pagination" && (
+                    <div className="mt-2">
+                      <PaginationPreview activeTypeId={activeTypeId} />
+                    </div>
+                  )}
+
+                  {selected.slug !== "sonner" && selected.slug !== "pagination" && (
+                    <div className="mt-2 text-muted-foreground">
+                      Preview for this component is not implemented yet.
+                    </div>
+                  )}
+                </Card>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                  {selected.types.map((t) => (
+                    <Card
+                      key={t.id}
+                      className="relative min-h-[160px] overflow-hidden bg-card/20"
+                    >
+                      <div className="flex h-full flex-col items-center justify-center gap-2">
+                        <div className="text-xs font-medium text-muted-foreground">
+                          Type
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className={[
+                            "rounded-full border-border/60 bg-background/30 px-4 py-1",
+                            "h-auto text-sm font-medium transition-colors hover:bg-background/60",
+                          ].join(" ")}
+                          onClick={() => {
+                            setActiveTypeId(t.id)
+
+                            if (selected.slug === "sonner") {
+                              showSonnerToast(t.id)
+                            }
+                          }}
+                        >
+                          {t.title}
+                        </Button>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
           </section>
         </main>
       </div>
