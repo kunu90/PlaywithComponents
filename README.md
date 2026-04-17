@@ -3,6 +3,8 @@
 > A personal learning lab where I explore the intersection of UX design thinking and AI-assisted front-end development — one component at a time.
 
 Latest update:
+Latest update: Button Group preview — added side-by-side horizontal + vertical button-group cards in the component explorer (Option 1/2/3), centered within each card, and fixed the theme hydration warning on the root <html> during local testing and push.
+
 Toast(Sonner) UI Tweaks
 I used Cursor to iteratively refine the toast UI in this project:
 
