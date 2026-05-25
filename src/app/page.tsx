@@ -17,6 +17,17 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import {
+  Skeleton,
+  SkeletonAvatar,
+  SkeletonCard,
+  SkeletonText,
+} from "@/components/ui/skeleton"
+import { RadialProgress } from "@/components/ui/radial-progress"
+import {
+  StatusIndicator,
+  STATUS_MOCK,
+} from "@/components/blocks/status-indicator"
 
 type ToastTypeCard = { id: string; title: string }
 
@@ -96,7 +107,11 @@ const UI_COMPONENT_SLUGS = [
   "calendar",
 ]
 
-const BLOCK_COMPONENT_SLUGS = ["interactive-bento-grid", "magnetic-cursor-layer"]
+const BLOCK_COMPONENT_SLUGS = [
+  "interactive-bento-grid",
+  "magnetic-cursor-layer",
+  "status-indicator",
+]
 
 const TYPE_OVERRIDES: Record<string, ToastTypeCard[]> = {
   sonner: [
@@ -132,11 +147,37 @@ const TYPE_OVERRIDES: Record<string, ToastTypeCard[]> = {
     { id: "collapsed", title: "Collapsed" },
     { id: "mobile", title: "Mobile" },
   ],
+  skeleton: [
+    { id: "basic", title: "Basic" },
+    { id: "avatar", title: "Avatar" },
+    { id: "card", title: "Card" },
+    { id: "text", title: "Text" },
+  ],
+  progress: [
+    { id: "default", title: "Default (70%)" },
+    { id: "values", title: "Different Values" },
+    { id: "primary", title: "Custom Color" },
+    { id: "branded", title: "Background + Border" },
+    { id: "thin", title: "Thin Stroke" },
+    { id: "thick", title: "Thick Stroke" },
+  ],
+  "status-indicator": [
+    { id: "all",      title: "All Levels" },
+    { id: "secure",   title: "Secure" },
+    { id: "warning",  title: "Warning" },
+    { id: "critical", title: "Critical" },
+  ],
 }
 
 const LATEST_UPDATE_OVERRIDES: Record<string, string> = {
   sonner:
     "Updated success/error toast colors + icons in `src/components/ui/sonner.tsx`.",
+  skeleton:
+    "Added SkeletonText, SkeletonAvatar, SkeletonCard variants with glass shimmer in `src/components/ui/skeleton.tsx`.",
+  progress:
+    "Built RadialProgress from scratch using SVG circles — supports 5 variants (default, primary, branded, thin, thick) in `src/components/ui/radial-progress.tsx`.",
+  "status-indicator":
+    "Built StatusIndicator block with 6 severity levels (normal → critical), staggered Framer Motion entry, critical pulse, and high shake animations in `src/components/blocks/status-indicator.tsx`.",
 }
 
 const COMPONENTS: ComponentEntry[] = [...UI_COMPONENT_SLUGS, ...BLOCK_COMPONENT_SLUGS].map(
@@ -299,6 +340,72 @@ function ButtonGroupPreview({ orientation }: { orientation: "horizontal" | "vert
   )
 }
 
+function StatusIndicatorPreview({ typeId }: { typeId: string }) {
+  const steps = STATUS_MOCK[typeId] ?? STATUS_MOCK.all
+  return (
+    <div className="flex justify-center py-4">
+      <StatusIndicator
+        key={typeId}
+        title={
+          typeId === "secure"   ? "Security Overview" :
+          typeId === "warning"  ? "Infrastructure Warnings" :
+          typeId === "critical" ? "Active Incidents" :
+          "System Status"
+        }
+        steps={steps}
+      />
+    </div>
+  )
+}
+
+function RadialProgressPreview({ typeId }: { typeId: string }) {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-6 py-6">
+      {typeId === "default" && (
+        <RadialProgress value={70} size={96} />
+      )}
+      {typeId === "values" &&
+        [0, 20, 60, 80, 100].map((v, i) => (
+          <RadialProgress key={v} value={v} size={80} delay={i * 0.15} />
+        ))
+      }
+      {typeId === "primary" && (
+        <RadialProgress value={70} size={96} variant="primary" />
+      )}
+      {typeId === "branded" && (
+        <RadialProgress value={70} size={96} variant="branded" />
+      )}
+      {typeId === "thin" && (
+        <RadialProgress value={30} size={96} variant="thin" showLabel={false} />
+      )}
+      {typeId === "thick" && (
+        <RadialProgress value={70} size={120} variant="thick" />
+      )}
+    </div>
+  )
+}
+
+function SkeletonPreview({ typeId }: { typeId: string }) {
+  return (
+    <div className="flex items-center justify-center py-6">
+      {typeId === "basic" && (
+        <Skeleton className="h-32 w-32" />
+      )}
+      {typeId === "avatar" && (
+        <SkeletonAvatar />
+      )}
+      {typeId === "card" && (
+        <SkeletonCard />
+      )}
+      {typeId === "text" && (
+        <p className="max-w-xs text-lg font-medium leading-relaxed">
+          <SkeletonText>AI is thinking harder…</SkeletonText>
+        </p>
+      )}
+    </div>
+  )
+}
+
 function PageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -397,11 +504,27 @@ function PageContent() {
                     </div>
                   )}
 
-                  {selected.slug !== "sonner" && selected.slug !== "pagination" && (
-                    <div className="mt-2 text-muted-foreground">
-                      Preview for this component is not implemented yet.
-                    </div>
+                  {selected.slug === "skeleton" && (
+                    <SkeletonPreview typeId={activeTypeId} />
                   )}
+
+                  {selected.slug === "progress" && (
+                    <RadialProgressPreview typeId={activeTypeId} />
+                  )}
+
+                  {selected.slug === "status-indicator" && (
+                    <StatusIndicatorPreview typeId={activeTypeId} />
+                  )}
+
+                  {selected.slug !== "sonner" &&
+                    selected.slug !== "pagination" &&
+                    selected.slug !== "skeleton" &&
+                    selected.slug !== "progress" &&
+                    selected.slug !== "status-indicator" && (
+                      <div className="mt-2 text-muted-foreground">
+                        Preview for this component is not implemented yet.
+                      </div>
+                    )}
                 </Card>
 
                 <div className="grid gap-6 md:grid-cols-2">

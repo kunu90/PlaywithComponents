@@ -124,6 +124,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+### Focus Grid (iOS)
+
+Native SwiftUI app in [`FocusGrid/`](FocusGrid/). Open `FocusGrid.xcodeproj` in Xcode 16+ and run on a physical iPhone — see [FocusGrid/README.md](FocusGrid/README.md).
+
 ---
 
 ## The Bigger Picture
