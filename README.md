@@ -3,7 +3,7 @@
 > A personal learning lab where I explore the intersection of UX design thinking and AI-assisted front-end development — one component at a time.
 
 Latest update:
-Latest update: Dialog, Tabs, Accordion, and Slider — wired into the component explorer with interactive variant cards (form/destructive dialogs, line/vertical tabs, single/multiple accordion, range/stepped/vertical sliders) plus Framer Motion spring interactions on type selectors.
+Latest update: Data Charts — Column, Line Comparison, Multi Line, and Threshold variants built with shadcn Chart + Recharts in `src/components/blocks/data-charts.tsx`, wired into the component explorer.
 
 Toast(Sonner) UI Tweaks
 I used Cursor to iteratively refine the toast UI in this project:

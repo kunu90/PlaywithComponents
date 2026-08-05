@@ -50,6 +50,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { DataChartsPreview } from "@/components/blocks/data-charts"
 import {
   StatusIndicator,
   STATUS_MOCK,
@@ -92,6 +93,7 @@ const UI_COMPONENT_SLUGS = [
 const BLOCK_COMPONENT_SLUGS = [
   "interactive-bento-grid",
   "status-indicator",
+  "data-charts",
 ]
 
 const TYPE_OVERRIDES: Record<string, ToastTypeCard[]> = {
@@ -145,6 +147,12 @@ const TYPE_OVERRIDES: Record<string, ToastTypeCard[]> = {
     { id: "warning",  title: "Warning" },
     { id: "critical", title: "Critical" },
   ],
+  "data-charts": [
+    { id: "column",          title: "Column" },
+    { id: "line-comparison", title: "Line Comparison" },
+    { id: "multi-line",      title: "Multi Line" },
+    { id: "threshold",       title: "Threshold" },
+  ],
 }
 
 const DESCRIPTION_OVERRIDES: Record<string, string> = {
@@ -153,6 +161,8 @@ const DESCRIPTION_OVERRIDES: Record<string, string> = {
   tabs: "Switch between related views without leaving the page.",
   accordion: "Expand and collapse sections to reveal progressive detail.",
   slider: "Select a value or range along a continuous track.",
+  "data-charts":
+    "Visualize trends and comparisons — columns, paired lines, multi-series, and threshold signals.",
 }
 
 const PROMPT_OVERRIDES: Record<string, string> = {
@@ -165,6 +175,7 @@ const PROMPT_OVERRIDES: Record<string, string> = {
   progress: "Click a type below to switch Radial Progress variants",
   pagination: "Click a type below — preview stays interactive",
   "status-indicator": "Click a type below to switch Status Indicator scenarios",
+  "data-charts": "Click a type below to switch chart variants",
 }
 
 const LATEST_UPDATE_OVERRIDES: Record<string, string> = {
@@ -184,6 +195,8 @@ const LATEST_UPDATE_OVERRIDES: Record<string, string> = {
     "Wired Accordion into the explorer with Single, Multiple, and Bordered expand modes.",
   slider:
     "Wired Slider into the explorer with Default, Range, Stepped, and Vertical variants.",
+  "data-charts":
+    "Built DataCharts block with Column, Line Comparison, Multi Line, and Threshold variants on shadcn Chart + Recharts in `src/components/blocks/data-charts.tsx`.",
 }
 
 const COMPONENTS: ComponentEntry[] = [...UI_COMPONENT_SLUGS, ...BLOCK_COMPONENT_SLUGS].map(
@@ -219,6 +232,7 @@ const PREVIEW_SLUGS = new Set([
   "tabs",
   "accordion",
   "slider",
+  "data-charts",
 ])
 
 const ACCORDION_ITEMS = [
@@ -692,6 +706,8 @@ function ComponentPreview({ slug, typeId }: { slug: string; typeId: string }) {
       return <AccordionPreview typeId={typeId} />
     case "slider":
       return <SliderPreview typeId={typeId} />
+    case "data-charts":
+      return <DataChartsPreview typeId={typeId} />
     default:
       return null
   }
